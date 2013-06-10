@@ -25,3 +25,13 @@ func (e *Earth) EarthEccentricitySq() float64 {
 func (e *Earth) EarthRadiusSemiminor() float64 {
 	return (e.EarthRadiusSemimajor() * (1 - e.EarthFlattening()))
 }
+
+// Get the radius of the Earth at a specific latitude.
+func (e *Earth) EarthRadius(latitude float64) float64 {
+	ratLat := deg2rad(latitude)
+
+	x := math.Cos(ratLat) / e.EarthRadiusSemimajor()
+	y := math.Sin(ratLat) / e.EarthRadiusSemiminor()
+
+	return 1 / (math.Sqrt((x * x) + (y * y)))
+}

@@ -4,15 +4,6 @@ import (
 	"testing"
 )
 
-const MAX_DIFF float64 = 0.0000001
-
-func diff(a, b float64) bool {
-    if a > b {
-        return (a - b) > MAX_DIFF
-    }
-    return (b - a) > MAX_DIFF
-}
-
 func TestBasics(t *testing.T) {
 
 	ret := new(Earth)
@@ -31,5 +22,23 @@ func TestBasics(t *testing.T) {
 
 	if diff(ret.EarthFlattening(), 0.003352810664747481) {
 		t.Error("! EarthFlattening is reporting the wrong value.")
+	}
+}
+
+func TestEarthRadius(t *testing.T) {
+
+	ret := new(Earth)
+
+	m := map[float64]float64{
+		1: 6378130.4536189,
+		10: 6377489.0140512,
+		45: 6367417.7249667,
+		90: 6356752.3142452,
+	};
+
+	for key, val := range m {
+		if diff(ret.EarthRadius(key), val) {
+			t.Error("! EarthRadius is reporting the wrong value.")
+		}
 	}
 }
