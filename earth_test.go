@@ -30,11 +30,11 @@ func TestEarthRadius(t *testing.T) {
 	ret := new(Earth)
 
 	m := map[float64]float64{
-		1: 6378130.4536189,
+		1:  6378130.4536189,
 		10: 6377489.0140512,
 		45: 6367417.7249667,
 		90: 6356752.3142452,
-	};
+	}
 
 	for key, val := range m {
 		if diff(ret.EarthRadius(key), val) {
