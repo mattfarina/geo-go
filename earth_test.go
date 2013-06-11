@@ -42,3 +42,19 @@ func TestEarthRadius(t *testing.T) {
 		}
 	}
 }
+
+func TestConvertDecToDMS(t *testing.T) {
+
+	earth := new(Earth)
+
+	// The location we are testing is for Michigan State University.
+	degrees, minutes, seconds := earth.ConvertDecToDMS(42.7186)
+	if degrees != 42 || minutes != 43 || diff(seconds, 6.96) {
+		t.Error("! ConvertDecToDMS incorrectly converting.")
+	}
+
+	degrees, minutes, seconds = earth.ConvertDecToDMS(-84.468466)
+	if degrees != -84 || minutes != 28 || diff(seconds, 6.4776) {
+		t.Error("! ConvertDecToDMS incorrectly converting.")
+	}
+}

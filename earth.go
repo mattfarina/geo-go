@@ -35,3 +35,17 @@ func (e *Earth) EarthRadius(latitude float64) float64 {
 
 	return 1 / (math.Sqrt((x * x) + (y * y)))
 }
+
+func (e *Earth) ConvertDecToDMS(coordinate float64) (degrees, minutes, seconds float64) {
+
+	degrees, part := math.Modf(coordinate)
+
+	// If the sign is negative we need to convert to a positive.
+	part = math.Copysign(part, 1)
+
+	temp := part * 3600
+	minutes = math.Floor(temp / 60)
+	seconds = temp - (minutes * 60)
+
+	return
+}
