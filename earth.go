@@ -57,3 +57,11 @@ func (e *Earth) ConvertDMStoDec(degrees, minutes, seconds float64) float64 {
 
 	return degrees + (((minutes * 60) + seconds) / 3600)
 }
+
+func (e *Earth) ConvertMetersToNauticalMiles(meters float64) float64 {
+	return meters / 1852
+}
+
+func (e *Earth) ConvertNauticalMilesToMeters(nm float64) float64 {
+	return nm * 1852
+}
