@@ -49,3 +49,11 @@ func (e *Earth) ConvertDecToDMS(coordinate float64) (degrees, minutes, seconds f
 
 	return
 }
+
+func (e *Earth) ConvertDMStoDec(degrees, minutes, seconds float64) float64 {
+	if degrees < 0 {
+		return degrees - (((minutes * 60) + seconds) / 3600)
+	}
+
+	return degrees + (((minutes * 60) + seconds) / 3600)
+}

@@ -58,3 +58,17 @@ func TestConvertDecToDMS(t *testing.T) {
 		t.Error("! ConvertDecToDMS incorrectly converting.")
 	}
 }
+
+func TestConvertDMStoDec(t *testing.T) {
+	ret := new(Earth)
+
+	dec := ret.ConvertDMStoDec(42, 43, 6.96)
+	if dec != 42.7186 {
+		t.Error("! ConvertDMStoDec incorrectly converting.")
+	}
+
+	dec = ret.ConvertDMStoDec(-84, 28, 6.4776)
+	if dec != -84.468466 {
+		t.Error("! ConvertDMStoDec incorrectly converting.")
+	}
+}
