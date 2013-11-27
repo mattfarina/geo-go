@@ -72,15 +72,3 @@ func TestConvertDMStoDec(t *testing.T) {
 		t.Error("! ConvertDMStoDec incorrectly converting.")
 	}
 }
-
-func TestConvertNautical(t *testing.T) {
-	ret := new(Earth)
-
-	if ret.ConvertNauticalMilesToMeters(5) != 9260 {
-		t.Error("! ConvertNauticalMilesToMeters incorrectly converting.")
-	}
-
-	if diff(ret.ConvertMetersToNauticalMiles(1234), .6663067) {
-		t.Error("! ConvertMetersToNauticalMiles incorrectly converting.")
-	}
-}

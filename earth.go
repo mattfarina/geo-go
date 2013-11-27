@@ -3,6 +3,7 @@ package geo
 
 import (
 	"math"
+	"github.com/Masterminds/convert/radial"
 )
 
 // Earth contains information about the shape of the Earth.
@@ -28,7 +29,7 @@ func (e *Earth) EarthRadiusSemiminor() float64 {
 
 // Get the radius of the Earth at a specific latitude.
 func (e *Earth) EarthRadius(latitude float64) float64 {
-	ratLat := deg2rad(latitude)
+	ratLat := radial.DegToRad(latitude)
 
 	x := math.Cos(ratLat) / e.EarthRadiusSemimajor()
 	y := math.Sin(ratLat) / e.EarthRadiusSemiminor()
@@ -56,12 +57,4 @@ func (e *Earth) ConvertDMStoDec(degrees, minutes, seconds float64) float64 {
 	}
 
 	return degrees + (((minutes * 60) + seconds) / 3600)
-}
-
-func (e *Earth) ConvertMetersToNauticalMiles(meters float64) float64 {
-	return meters / 1852
-}
-
-func (e *Earth) ConvertNauticalMilesToMeters(nm float64) float64 {
-	return nm * 1852
 }
