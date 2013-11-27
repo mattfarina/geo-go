@@ -4,6 +4,15 @@ import (
 	"testing"
 )
 
+const maxDiff float64 = 0.0000001
+
+func diff(a, b float64) bool {
+	if a > b {
+		return (a - b) > maxDiff
+	}
+	return (b - a) > maxDiff
+}
+
 func TestBasics(t *testing.T) {
 
 	ret := new(Earth)
