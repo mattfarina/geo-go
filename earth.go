@@ -2,8 +2,8 @@
 package geo
 
 import (
-	"math"
 	"github.com/Masterminds/convert/radial"
+	"math"
 )
 
 // Earth contains information about the shape of the Earth.
