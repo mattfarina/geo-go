@@ -1,13 +1,21 @@
 language: go
+
 go:
-- 1.2
+  - 1.2
+
 notifications:
   irc: irc.freenode.net#mattfarina
+
+before_script:
+  - go get code.google.com/p/go.tools/cmd/cover
+  - go get github.com/hailiang/goveralls
+
 script:
-- go get code.google.com/p/go.tools/cmd/cover
-- go get github.com/hailiang/goveralls
-- go test -v ./... -covermode=count -coverprofile=profile.cov
-- goveralls -coverprofile=profile.cov -service=travis-ci -repotoken=$(COVERALLS_TOKEN)
+  - go test -v -covermode=count -coverprofile=profile.cov ./...
+
+after_script:
+  - goveralls -coverprofile=profile.cov -service=travis-ci -repotoken=$COVERALLS_TOKEN
+
 env:
   global:
     secure: BHd1hrjcfjdu3twedJVtpymHTeTVZ2/4KQjCSBqHwlay3Y49dSScUXKT/dOwebcAm/DdCskecMg4jNyp6vbUTFJGcnxFXu2+tHKPUEUhRiJRgAwcGeFAUITR4Ka5npzdlzPQZa5ZcHKleMI5TPHhkylYFz/GvOTWF/WUjWakw3A=
