@@ -7,6 +7,7 @@ notifications:
   irc: irc.freenode.net#mattfarina
 
 install:
+  - go get -v ./...
   - PATH=$GOPATH/bin:$PATH
   - go get code.google.com/p/go.tools/cmd/cover
   - go get github.com/hailiang/goveralls
