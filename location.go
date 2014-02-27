@@ -44,13 +44,63 @@ func (l *Location) SetLongitude(long float64) {
 	l.longitude = long
 }
 
-// func (l *Location) LatitudeRange(distance float64) (north, south Location) {
+// LatitudeRange returns a range of latitudes given a distance from the
+// center point.
+func (l *Location) LatitudeRange(distance float64) (min, max float64) {
+	lat := radial.DegToRad(l.Latitude())
 
-// }
+	radius := l.EarthRadius(l.Latitude())
+	angle := distance / radius
+	rightAngle := math.Pi / 2
 
-// func (l *Location) LongitudeRange(distance float64) (east, west Location) {
+	minLat := lat - angle
+	maxLat := lat + angle
 
-// }
+	// wrapped around the south pole
+	if minLat < -rightAngle {
+		minOvershoot := -minLat - rightAngle
+		minLat := -rightAngle + minOvershoot
+		if minLat > maxLat {
+			maxLat = minLat
+		}
+		minLat = -rightAngle
+	}
+
+	// wrapped around the north pole
+	if maxLat > rightAngle {
+		maxOvershoot := maxLat - rightAngle
+		maxLat := rightAngle - maxOvershoot
+		if maxLat < minLat {
+			minLat = maxLat
+		}
+		maxLat = rightAngle
+	}
+
+	return radial.RadToDeg(minLat), radial.RadToDeg(maxLat)
+}
+
+// LongitudeRange returns a range of longitudes given a distance from the
+// center point.
+func (l *Location) LongitudeRange(distance float64) (min, max float64) {
+	long := radial.DegToRad(l.Longitude())
+	lat := radial.DegToRad(l.Latitude())
+
+	radius := l.EarthRadius(l.Latitude())
+	angle := distance / radius
+	diff := math.Asin(math.Sin(angle) / math.Cos(lat))
+
+	minLong := long - diff
+	if minLong < -math.Pi {
+		minLong = minLong + math.Pi*2
+	}
+
+	maxLong := long + diff
+	if maxLong > math.Pi {
+		maxLong = maxLong - math.Pi*2
+	}
+
+	return radial.RadToDeg(minLong), radial.RadToDeg(maxLong)
+}
 
 // Distance returns the distance, in meters, between two locations. One location
 // is this one and the second location is passed in. Vincenty's Forumlae is

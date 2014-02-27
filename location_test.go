@@ -67,3 +67,24 @@ func TestDistance(t *testing.T) {
 		t.Error("! An incorrect distance was calculated between Google and the Sydney Opera House", distance)
 	}
 }
+
+func TestRanges(t *testing.T) {
+
+	location := NewLocation(42.7186, -84.468466)
+
+	latMin, latMax := location.LatitudeRange(10000)
+	if diff(latMin, 42.6286292) {
+		t.Error("! An incorrect minimum latitude was calculated")
+	}
+	if diff(latMax, 42.8085707) {
+		t.Error("! An incorrect maximum latitude was calculated")
+	}
+
+	longMin, longMax := location.LongitudeRange(20000)
+	if diff(longMin, -84.7133865) {
+		t.Error("! An incorrect minimum longitude was calculated")
+	}
+	if diff(longMax, -84.2235454) {
+		t.Error("! An incorrect maximum longitude was calculated")
+	}
+}
