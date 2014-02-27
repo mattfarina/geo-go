@@ -6,9 +6,6 @@ go:
 notifications:
   irc: irc.freenode.net#mattfarina
 
-script:
-  - go test -v -covermode=count -coverprofile=profile.cov ./...
-
 # script:
 #   - go get code.google.com/p/go.tools/cmd/cover
 #   - go get github.com/hailiang/goveralls
