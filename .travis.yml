@@ -1,9 +1,17 @@
 language: go
 
 go:
-  - 1.0
-  - 1.1
   - 1.2
 
 notifications:
   irc: "irc.freenode.net#mattfarina"
+
+before_script:
+  - go get code.google.com/p/go.tools/cmd/cover
+  - go get github.com/hailiang/goveralls
+
+script:
+  - go test -covermode=count -coverprofile=profile.cov
+
+after_script:
+  - goveralls -coverprofile=profile.cov -service=travis-ci
