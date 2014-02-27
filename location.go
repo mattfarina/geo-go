@@ -154,7 +154,7 @@ func (l *Location) Distance(location Location) (float64, error) {
 
 	// This would mean we have an error
 	if iterLimit == 0 {
-		return 0, errors.New("Geo: Error calculating distance.")
+		return 0, errors.New("geo: Error calculating distance")
 	}
 
 	uSq := cosSqAlpha * (a*a - b*b) / (b * b)
